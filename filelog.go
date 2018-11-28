@@ -89,6 +89,8 @@ func NewFileLogWriter(fname string, rotate bool) *FileLogWriter {
                 }
             case rec, ok := <-w.rec:
                 if !ok {
+                    // Flush
+                    w.file.Sync()
                     return
                 }
                 now := time.Now()
