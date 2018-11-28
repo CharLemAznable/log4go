@@ -1,4 +1,8 @@
-# This is an unmaintained fork, left only so it doesn't break imports.
+## log4go
+
+Fork from [https://github.com/alecthomas/log4go](https://github.com/alecthomas/log4go)
+
+Source Code from [http://code.google.com/p/log4go/](http://code.google.com/p/log4go/)
 
 Please see http://log4go.googlecode.com/
 
