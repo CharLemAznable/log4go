@@ -3,7 +3,6 @@ package log4go
 import (
     "bufio"
     "fmt"
-    "github.com/CharLemAznable/log4go"
     "io"
     "os"
     "testing"
@@ -11,8 +10,8 @@ import (
 )
 
 func TestConsoleLogWriter_Manual(t *testing.T) {
-    log := log4go.NewLogger()
-    log.AddFilter("stdout", log4go.DEBUG, log4go.NewConsoleLogWriter())
+    log := NewLogger()
+    log.AddFilter("stdout", DEBUG, NewConsoleLogWriter())
     log.Info("The time is now: %s", time.Now().Format("15:04:05 MST 2006/01/02"))
     time.Sleep(time.Second)
 }
@@ -22,20 +21,20 @@ func TestFileLogWriter_Manual(t *testing.T) {
         filename = "flw.log"
     )
     // Get a new logger instance
-    log := log4go.NewLogger()
+    log := NewLogger()
 
     // Create a default logger that is logging messages of FINE or higher
-    log.AddFilter("file", log4go.FINE, log4go.NewFileLogWriter(filename, false))
+    log.AddFilter("file", FINE, NewFileLogWriter(filename, false))
     log.Close()
 
     /* Can also specify manually via the following: (these are the defaults) */
-    flw := log4go.NewFileLogWriter(filename, false)
+    flw := NewFileLogWriter(filename, false)
     flw.SetFormat("[%D %T] [%L] (%S) %M")
     flw.SetRotate(false)
     flw.SetRotateSize(0)
     flw.SetRotateLines(0)
     flw.SetRotateDaily(false)
-    log.AddFilter("file", log4go.FINE, flw)
+    log.AddFilter("file", FINE, flw)
 
     // Log some experimental messages
     log.Finest("Everything is created now (notice that I will not be printing to the file)")
@@ -66,13 +65,15 @@ func TestFileLogWriter_Manual(t *testing.T) {
 
 func TestXMLConfigurationExample(t *testing.T) {
     // Load the configuration (isn't this easy?)
-    log4go.LoadConfiguration("manual_test_example.xml")
+    LoadConfiguration("manual_test_example.xml")
 
     // And now we're ready!
-    log4go.Finest("This will only go to those of you really cool UDP kids!  If you change enabled=true.")
-    log4go.Debug("Oh no!  %d + %d = %d!", 2, 2, 2+2)
-    log4go.Info("About that time, eh chaps?")
-    log4go.Close()
+    Finest("This will only go to those of you really cool UDP kids!  If you change enabled=true.")
+    Debug("Oh no!  %d + %d = %d!", 2, 2, 2+2)
+    Info("About that time, eh chaps?")
+    Close()
 
-    time.Sleep(time.Second * 10)
+    time.Sleep(time.Second * 3)
+    os.Remove("test.log")
+    os.Remove("trace.xml")
 }

@@ -36,19 +36,19 @@ func (log Logger) LoadConfiguration(filename string) {
     fd, err := os.Open(filename)
     if err != nil {
         fmt.Fprintf(os.Stderr, "LoadConfiguration: Error: Could not open %q for reading: %s\n", filename, err)
-        os.Exit(1)
+        return
     }
 
     contents, err := ioutil.ReadAll(fd)
     if err != nil {
         fmt.Fprintf(os.Stderr, "LoadConfiguration: Error: Could not read %q: %s\n", filename, err)
-        os.Exit(1)
+        return
     }
 
     xc := new(xmlLoggerConfig)
     if err := xml.Unmarshal(contents, xc); err != nil {
         fmt.Fprintf(os.Stderr, "LoadConfiguration: Error: Could not parse XML configuration in %q: %s\n", filename, err)
-        os.Exit(1)
+        return
     }
 
     for _, xmlfilt := range xc.Filter {
@@ -100,7 +100,7 @@ func (log Logger) LoadConfiguration(filename string) {
 
         // Just so all of the required attributes are errored at the same time if missing
         if bad {
-            os.Exit(1)
+            continue
         }
 
         switch xmlfilt.Type {
@@ -114,12 +114,12 @@ func (log Logger) LoadConfiguration(filename string) {
             filt, good = xmlToSocketLogWriter(filename, xmlfilt.Property, enabled)
         default:
             fmt.Fprintf(os.Stderr, "LoadConfiguration: Error: Could not load XML configuration in %s: unknown filter type \"%s\"\n", filename, xmlfilt.Type)
-            os.Exit(1)
+            continue
         }
 
         // Just so all of the required params are errored at the same time if wrong
         if !good {
-            os.Exit(1)
+            continue
         }
 
         // If we're disabled (syntax and correctness checks only), don't add to logger

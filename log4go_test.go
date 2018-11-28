@@ -154,6 +154,8 @@ func TestXMLLogWriter(t *testing.T) {
     w.Close()
     runtime.Gosched()
 
+    time.Sleep(time.Second)
+
     if contents, err := ioutil.ReadFile(testLogFile); err != nil {
         t.Errorf("read(%q): %s", testLogFile, err)
     } else if len(contents) != 185 {
@@ -414,8 +416,9 @@ func TestXMLConfig(t *testing.T) {
         t.Errorf("XMLConfig: Expected xmllog to have opened %s, found %s", "trace.xml", fname)
     }
 
+    os.Remove(configfile)
     // Move XML log file
-    os.Rename(configfile, "examples/"+configfile) // Keep this so that an example with the documentation is available
+    // os.Rename(configfile, "examples/"+configfile) // Keep this so that an example with the documentation is available
 }
 
 func BenchmarkFormatLogRecord(b *testing.B) {
