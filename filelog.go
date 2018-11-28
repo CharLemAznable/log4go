@@ -108,6 +108,8 @@ func NewFileLogWriter(fname string, rotate bool) *FileLogWriter {
                     return
                 }
 
+                // Flush
+                w.file.Sync()
                 // Update the counts
                 w.maxlines_curlines++
                 w.maxsize_cursize += n
