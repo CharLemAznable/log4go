@@ -1,0 +1,6 @@
+language: go
+go:
+  - 1.11.x
+  - master
+install: go get github.com/CharLemAznable/log4go
+script: go test
