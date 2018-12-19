@@ -1,6 +1,7 @@
 ## log4go
 
   [![Build Status](https://travis-ci.org/CharLemAznable/log4go.svg?branch=master)](https://travis-ci.org/CharLemAznable/log4go)
+  [![codecov](https://codecov.io/gh/CharLemAznable/log4go/branch/master/graph/badge.svg)](https://codecov.io/gh/CharLemAznable/log4go)
   [![GitHub version](https://badge.fury.io/gh/CharLemAznable%2Flog4go.svg)](https://badge.fury.io/gh/CharLemAznable%2Flog4go)
   [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
 
